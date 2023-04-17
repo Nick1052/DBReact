@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import {useNavigate} from 'react-router-dom'
 
 function LandingPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [university, setUniversity] = useState("");
     const [role, setRole] = useState("");
+    const [user, setUser] = useState()
+    const [isSubmitted, setSubmmited] = useState(false)
+    const navigate = useNavigate();
+    
+
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -22,6 +28,7 @@ function LandingPage() {
         setUniversity(event.target.value);
     };
 
+
     const handleLoginSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -35,13 +42,32 @@ function LandingPage() {
             password: password,
             }),
         });
+
         const data = await response.json();
-        console.log(data);
+        
         // TODO: Handle response data
+        setUser(data);
+        
         } catch (error) {
         console.error(error);
         }
     };
+
+    useEffect(() => {
+        if(user) {
+            console.log(user)
+            userToMainPage();
+        }
+    }, [user])
+
+    useEffect(() => {
+        if(isSubmitted) {
+            setRole("")
+            setUniversity("")
+            setEmail("")
+            setPassword("")
+        }
+    },[isSubmitted])
 
     const handleRegisterSubmit = async (event) => {
         event.preventDefault();
@@ -69,9 +95,16 @@ function LandingPage() {
         const data = await response.json();
         console.log(data);
         // TODO: Handle response data
+
+        setSubmmited(true)
+        
         } catch (error) {
         console.error(error);
         }
+  };
+
+  const userToMainPage = () => {
+    navigate("/pages/MainPage.js", {state: user})
   };
 
   return (

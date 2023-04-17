@@ -8,6 +8,12 @@
 .db-table {
     border-collapse: collapse;
     width: 80%;
+    border: 1px solid #ddd;
+}
+
+.db-table tbody {
+    color: white;
+    background-color: #666;
 }
 
 .db-table th,
@@ -22,9 +28,31 @@
 }
 
 .db-table td {
-    border: 1px solid #ddd;
+    border: 1px solid #ffffff;
+    background-color: #080707;
 }
 
-.db-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+.eventId {
+    display: none;
+}
+.controls {
+    background-color: aqua;
+    width: 50%;
+    height: 120%;
+    float:center;
+}
+
+.rsoControls {
+    background-color: greenyellow;
+}
+
+.universityControls {
+    background-color: black;
+}
+.eventsControls {
+    background-color: rgb(221, 85, 7);
+}
+.controlsB{
+    width: 120px;
+    height: 70px;
 }

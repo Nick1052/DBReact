@@ -7,7 +7,7 @@ function MainPage() {
     const[rsos, setRsos] = useState("")
     const location = useLocation();
     
-    console.log(location.state.userId)
+   // console.log(location.state.userId)
 
     // const handleAddEvent = async (event) => {
     //     event.preventDefault();

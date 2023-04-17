@@ -43,16 +43,29 @@
 }
 
 .rsoControls {
-    background-color: greenyellow;
+    /* background-color: greenyellow; */
+    background-color: black;
+
 }
 
 .universityControls {
     background-color: black;
 }
 .eventsControls {
-    background-color: rgb(221, 85, 7);
+    /* background-color: rgb(221, 85, 7); */
+    background-color: black;
+
 }
 .controlsB{
-    width: 120px;
-    height: 70px;
+    margin: 5px;
+    font-size: 25px;
+    padding: 5px 10px;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    background: #ddbea9;
+    border: 2.5px solid #cb997e;
+    border-radius: 5px; 
+    font-family: "Times New Roman";
 }

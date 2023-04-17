@@ -1,0 +1,30 @@
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.db-table {
+    border-collapse: collapse;
+    width: 80%;
+}
+
+.db-table th,
+.db-table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.db-table th {
+    background-color: #666;
+    color: white;
+}
+
+.db-table td {
+    border: 1px solid #ddd;
+}
+
+.db-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

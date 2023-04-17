@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+// Utility
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+
+// CSS for pages
 import './App.css';
+import './css/LandingPage.css'
+import './css/MainPage.css'
+// Pages
+import LandingPage  from './pages/LandingPage';
+import MainPage from './pages/MainPage'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Navigate to="/pages/LandingPage.js" />} />
+          <Route path= "pages/LandingPage.js" element = {<LandingPage/>}/>
+          <Route path = "pages/MainPage.js" element = {<MainPage/>}/>
+        </Routes>
+      </Router>
     </div>
   );
 }

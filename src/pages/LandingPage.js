@@ -10,6 +10,21 @@ function LandingPage() {
     const [isSubmitted, setSubmmited] = useState(false)
     const navigate = useNavigate();
     
+    useEffect(() => {
+        if(user) {
+            console.log(user)
+            userToMainPage();
+        }
+    }, [user])
+
+    useEffect(() => {
+        if(isSubmitted) {
+            setRole("")
+            setUniversity("")
+            setEmail("")
+            setPassword("")
+        }
+    },[isSubmitted])
 
 
     const handleEmailChange = (event) => {
@@ -45,29 +60,16 @@ function LandingPage() {
 
         const data = await response.json();
         
-        // TODO: Handle response data
-        setUser(data);
+        if (response.status == 200) {
+            setUser(data);
+        }
+        
         
         } catch (error) {
         console.error(error);
         }
     };
 
-    useEffect(() => {
-        if(user) {
-            console.log(user)
-            userToMainPage();
-        }
-    }, [user])
-
-    useEffect(() => {
-        if(isSubmitted) {
-            setRole("")
-            setUniversity("")
-            setEmail("")
-            setPassword("")
-        }
-    },[isSubmitted])
 
     const handleRegisterSubmit = async (event) => {
         event.preventDefault();
@@ -96,7 +98,8 @@ function LandingPage() {
         console.log(data);
         // TODO: Handle response data
 
-        setSubmmited(true)
+        if (response.status == 200)
+            setSubmmited(true)
         
         } catch (error) {
         console.error(error);

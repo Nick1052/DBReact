@@ -319,6 +319,10 @@ function MainPage() {
                     <button className="controlsB">Add Events</button>
         
                 </div>
+                <div className="commentControls">
+                    <button className="controlsB">Add comment</button>
+                    <button className="controlsB">Delete comment</button>
+                </div>
             </div>
             <div className="table-container">
                 <table className="db-table">
@@ -332,8 +336,8 @@ function MainPage() {
                             <th>Start time</th>
                             <th>End time</th>
                             <th>Type of Event</th>
+                            <th>Edit/Delete</th>
                             <th className="eventId">eventId</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -346,6 +350,10 @@ function MainPage() {
                             <td>Start time</td>
                             <td>End time</td>
                             <td>Type of event</td>
+                            <td>
+                                <button>edit</button>
+                                <button>delete</button>
+                            </td>
                             <td className="eventId">eventId</td>
 
                         </tr>

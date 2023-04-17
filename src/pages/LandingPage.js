@@ -9,23 +9,6 @@ function LandingPage() {
     const [user, setUser] = useState()
     const [isSubmitted, setSubmmited] = useState(false)
     const navigate = useNavigate();
-    
-    useEffect(() => {
-        if(user) {
-            console.log(user)
-            userToMainPage();
-        }
-    }, [user])
-
-    useEffect(() => {
-        if(isSubmitted) {
-            setRole("")
-            setUniversity("")
-            setEmail("")
-            setPassword("")
-        }
-    },[isSubmitted])
-
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -60,7 +43,7 @@ function LandingPage() {
 
         const data = await response.json();
         
-        if (response.status == 200) {
+        if (response.status === 200) {
             setUser(data);
         }
         
@@ -98,7 +81,7 @@ function LandingPage() {
         console.log(data);
         // TODO: Handle response data
 
-        if (response.status == 200)
+        if (response.status === 200)
             setSubmmited(true)
         
         } catch (error) {
@@ -106,6 +89,21 @@ function LandingPage() {
         }
   };
 
+    useEffect(() => {
+        if(user) {
+            console.log(user)
+            userToMainPage();
+        }
+    }, [user])
+
+    useEffect(() => {
+        if(isSubmitted) {
+            setRole("")
+            setUniversity("")
+            setEmail("")
+            setPassword("")
+        }
+    },[isSubmitted])
   const userToMainPage = () => {
     navigate("/pages/MainPage.js", {state: user})
   };

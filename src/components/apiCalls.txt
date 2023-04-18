@@ -1,0 +1,34 @@
+// export const handleSubmitButton = (type) => {
+//     switch(type){
+//     //     case "createRSO": handleCreateRSO(); break;
+//     //     case "deleteRSO": handleDeleteRSO(); break;
+//     //     case "joinRSO": handleJoinRSO(); break;
+//     //     case "addUniversity": handleAddUniversity(); break;
+//     //     case "deleteUniversity": handleDeleteUniversity(); break;
+//     //     case "addComment": handleAddComment(); break;
+//     //     case "deleteComment": handleDeleteComment(); break;
+//         case "addEvent": handleAddEvent(); break;
+//     }
+// }
+
+// export const handleAddEvent = async (event) => {
+//     event.preventDefault();
+//     try {
+//     const response = await fetch("http://127.0.0.1:5000/login", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+            
+
+//         }),
+//     });
+
+//     const data = await response.json();
+//     console.log(data);
+//     // TODO: Handle response data
+//     } catch (error) {
+//     console.error(error);
+//     }
+// };

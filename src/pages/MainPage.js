@@ -4,7 +4,9 @@ import {useLocation} from 'react-router-dom'
 import Popup from "../components/CustomPopUp"
 
 function MainPage() {
-    
+    // API 
+
+    // Buttons for Forms
     const [buttonPopup, setButtonPopup] = useState(false)
     const [popupType, setPopupType] = useState("")
     const location = useLocation();
@@ -13,6 +15,22 @@ function MainPage() {
     const handleButtonClick = (type) => {
         setPopupType(type)
         setButtonPopup(true)
+    }
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+
+        // switch(type) {
+        //         case "createRSO": handleCreateRSO(); break;
+        //         case "deleteRSO": handleDeleteRSO(); break;
+        //         case "joinRSO": handleJoinRSO(); break;
+        //         case "addUniversity": handleAddUniversity(); break;
+        //         case "deleteUniversity": handleDeleteUniversity(); break;
+        //         case "addComment": handleAddComment(); break;
+        //         case "deleteComment": handleDeleteComment(); break;
+        //         case "addEvent": handleAddEvent(); break;
+        // }
+        
     }
 
 
@@ -38,7 +56,7 @@ function MainPage() {
                     <button className="controlsB" onClick= {() => handleButtonClick("addEvent")}>Add Events</button>
                 </div>
                 <div className="eventsControls">
-                    <button className="controlsB" onClick= {() => console.log('FIX HERE')}>Logout</button>
+                    <button className="controlsB" onClick= {() => console.log('FIX ')}>Logout</button>
                 </div>
             </div>
             <div className="table-container">
@@ -68,9 +86,9 @@ function MainPage() {
                             <td>End time</td>
                             <td>Type of event</td>
                             <td>
-                                <button class="modify">Edit</button>
-                                <button class="modify">Delete</button>
-                                <button class="modify">View Comments</button>
+                                <button className="modify">Edit</button>
+                                <button className="modify">Delete</button>
+                                <button className="modify">View Comments</button>
                             </td>
                             <td className="eventId">eventId</td>
 
@@ -78,18 +96,18 @@ function MainPage() {
                     </tbody>
                 </table>
             </div>
-            <Popup trigger= {buttonPopup} setTrigger = {setButtonPopup} popupType = {popupType}>
+            <Popup trigger= {buttonPopup} setTrigger = {setButtonPopup}>
                 {popupType === "createRSO" && 
                     <div>
                         <form>
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 RSO name:
-                                <input class="popupInput" type="rsoName" name="rsoName"  />
+                                <input className="popupInput" type="rsoName" name="rsoName"  />
                             </label>
                             <br />
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 Description:
-                                <input class="popupInput" type="description" name="description"  />
+                                <input className="popupInput" type="description" name="description"  />
                             </label>
                             <br />
                             <label className="eventId">
@@ -102,7 +120,7 @@ function MainPage() {
                 {popupType === "deleteRSO" && 
                     <div>
                         <form>
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 PlaceHolder
                             </label>
                             <br />
@@ -112,16 +130,16 @@ function MainPage() {
                 {popupType === "joinRSO" && 
                     <div>
                         <form>
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 RSO name:
-                                <input class="popupInput" type="rsoName" name="rsoName"  />
+                                <input className="popupInput" type="rsoName" name="rsoName"  />
                             </label>
                             <br />
                             <label className="eventId">
                                 userId : {location.state.userId}
                             </label>
                             <br />
-                            <label class="labelColor" className="eventId">
+                            <label className="eventId">
                                 rsoId : 
                             </label>
                         </form>
@@ -130,9 +148,9 @@ function MainPage() {
                 {popupType === "addUniversity" && 
                     <div>
                         <form>
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 University Name:
-                                <input class="popupInput" type="universityName" name="universityName"  />
+                                <input className="popupInput" type="universityName" name="universityName"  />
                             </label>
                         </form>
                     </div>
@@ -140,9 +158,9 @@ function MainPage() {
                 {popupType === "deleteUniversity" && 
                     <div>
                         <form>
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 University Name:
-                                <input class="popupInput" type="universityName" name="universityName"  />
+                                <input className="popupInput" type="universityName" name="universityName"  />
                             </label>
                         </form>
                     </div>
@@ -150,7 +168,7 @@ function MainPage() {
                 {popupType === "addComment" && 
                     <div>
                         <form>
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 Placeholder
                             </label>
                             <br />
@@ -160,7 +178,7 @@ function MainPage() {
                 {popupType === "deleteComment" && 
                     <div>
                         <form>
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 Placeholder
                             </label>
                             <br />
@@ -170,7 +188,7 @@ function MainPage() {
                 {popupType === "addComment" && 
                     <div>
                         <form>
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 PlaceHolder
                             </label>
                             <br />
@@ -179,43 +197,43 @@ function MainPage() {
                 }
                 {popupType === "addEvent" && 
                     <div>
-                        <form>
-                            <label class="labelColor">
+                        <form onSubmit={handleFormSubmit}>
+                            <label className="labelColor">
                                 Event Name:
-                                <input class="popupInput" type ="name" name ="name" />
+                                <input className="popupInput" type ="name"  />
                             </label>
                             <br />
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 Event URL:
-                                <input class="popupInput" type ="url" name ="url" />
+                                <input className="popupInput" type ="text" name ="url" />
                             </label>
                             <br />
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 Event Description:
-                                <input class="popupInput" type ="description" name ="description" />
+                                <input className="popupInput" type ="description" name ="description" />
                             </label>
                             <br />
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 Event Date:
-                                <input class="popupInput" type ="date" name ="date" />
+                                <input className="popupInput" type ="date" name ="date" />
                             </label>
                             <br />
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 Event Location:
-                                <input class="popupInput" type ="location" name ="location" />
+                                <input className="popupInput" type ="location" name ="location" />
                             </label>
                             <br />
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 Start time:
-                                <input class="popupInput" type ="location" name ="location" />
+                                <input className="popupInput" type ="location" name ="location" />
                             </label>
                             <br />
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 End time:
-                                <input class="popupInput" type ="location" name ="location" />
+                                <input className="popupInput" type ="location" name ="location" />
                             </label>
                             <br />
-                            <label class="labelColor">
+                            <label className="labelColor">
                                 Type of Event:
                                 <select>
                                     <option value =""></option>
@@ -228,6 +246,7 @@ function MainPage() {
                             <label className="eventId">
                                 userId : {location.state.userId}
                             </label>
+                            <button type = "submit" className="popup-close-btn" >Submit</button>
                         </form>
                     </div> 
                 }

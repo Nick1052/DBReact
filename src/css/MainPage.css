@@ -85,4 +85,6 @@
 
 .popup {
     background-color: #6b705c;
+    height: 200px;
+    width: 200px;
 }

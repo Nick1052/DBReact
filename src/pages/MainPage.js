@@ -284,7 +284,7 @@ function MainPage() {
                 }
                 {popupType === "editEvent" && 
                     <div>
-                        <label>PlaceHolder</label>
+                        <label className="labelColor">PlaceHolder</label>
                     </div>
                 }
                 {popupType === "deleteEvent" && 

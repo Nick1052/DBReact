@@ -5,37 +5,124 @@ import Popup from "../components/CustomPopUp"
 import {FacebookShareCount, FacebookShareButton, FacebookIcon} from "react-share";
 
 function MainPage() {
-    // API 
+    // API UseStates
+    //const [userId, setUserId] = useState("");
+    const [location, setLocation] = useState("");
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [url, setUrl] = useState("");
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
+    const [date, setDate] = useState("");
+    const [eventType, setEventType] = useState("");
+    const [rsoId, setRsoId] = useState("");
+
+    // Holds userRole and userId
+    const locationState = useLocation();
 
     // Buttons for Forms
     const [buttonPopup, setButtonPopup] = useState(false)
     const [popupType, setPopupType] = useState("")
-    const location = useLocation();
-    
-    
+
+    // Handleers
+
+
+    const handleLocationChange = (event) => {
+        setLocation(event.target.value);
+      };
+      
+      const handleNameChange = (event) => {
+        setName(event.target.value);
+      };
+      
+      const handleDescriptionChange = (event) => {
+        setDescription(event.target.value);
+      };
+      
+      const handleUrlChange = (event) => {
+        setUrl(event.target.value);
+      };
+      
+      const handleStartTimeChange = (event) => {
+        setStartTime(event.target.value);
+      };
+      
+      const handleEndTimeChange = (event) => {
+        setEndTime(event.target.value);
+      };
+      
+      const handleDateChange = (event) => {
+        setDate(event.target.value);
+      };
+      
+      const handleEventTypeChange = (event) => {
+        setEventType(event.target.value);
+      };
+      
+      const handleRsoIdChange = (event) => {
+        setRsoId(event.target.value);
+      };
     const handleButtonClick = (type) => {
         setPopupType(type)
         setButtonPopup(true)
     }
-
     const handleFormSubmit = (event) => {
         event.preventDefault();
-
-        // switch(type) {
-        //         case "createRSO": handleCreateRSO(); break;
-        //         case "deleteRSO": handleDeleteRSO(); break;
-        //         case "joinRSO": handleJoinRSO(); break;
-        //         case "addUniversity": handleAddUniversity(); break;
-        //         case "deleteUniversity": handleDeleteUniversity(); break;
-        //         case "addComment": handleAddComment(); break;
-        //         case "deleteComment": handleDeleteComment(); break;
-        //         case "addEvent": handleAddEvent(); break;
-        // }
+        console.log(popupType)
+        switch(popupType) {
+                // case "createRSO": handleCreateRSO(); break;
+                // case "deleteRSO": handleDeleteRSO(); break;
+                // case "joinRSO": handleJoinRSO(); break;
+                // case "addUniversity": handleAddUniversity(); break;
+                // case "deleteUniversity": handleDeleteUniversity(); break;
+                // case "addComment": handleAddComment(); break;
+                // case "deleteComment": handleDeleteComment(); break;
+                case "addEvent": 
+                    handleAddEvent(); 
+                    break;
+        }
+        setButtonPopup(false)
         
     }
 
+    const handleAddEvent = async (event) => {
+        event.preventDefault();
+        try {
 
-   // console.log(location.state.userId)
+        
+
+        
+        const response = await fetch("http://127.0.0.1:5000/createEvent", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(
+                {
+                    "userId" : locationState.userId,
+                    "location" : location,
+                    "name" : name,
+                    "description" : description,
+                    "url" : url,
+                    "start_time" : startTime,
+                    "end_time" : endTime,
+                    "date" : date,
+                    "eventType" : eventType,
+                    "rsoId" : 0
+                  }
+            ),
+        });
+
+        const data = await response.json();
+        console.log(data);
+        // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+
+
+   // console.log(locationState.state.userId)
     const shareUrl = "www.google.com"; //feed url from backend
  
     return (
@@ -116,7 +203,7 @@ function MainPage() {
                             </label>
                             <br />
                             {/* <label className="eventId">
-                                userId : {location.state.userId}
+                                userId : {locationState.state.userId}
                             </label> */}
                             <br />
                             <button type ='submit' className="popup-close-btn">Submit</button>
@@ -143,7 +230,7 @@ function MainPage() {
                             </label>
                             <br />
                             {/* <label className="eventId">
-                                userId : {location.state.userId}
+                                userId : {locationState.state.userId}
                             </label> */}
                             <br />
                             <label className="eventId">
@@ -233,17 +320,17 @@ function MainPage() {
                             <br />
                             <label className="labelColor">
                                 Event Location:
-                                <input className="popupInput" type ="location" name ="location" />
+                                <input className="popupInput" type ="locationState" name ="locationState" />
                             </label>
                             <br />
                             <label className="labelColor">
                                 Start time:
-                                <input className="popupInput" type ="location" name ="location" />
+                                <input className="popupInput" type ="locationState" name ="locationState" />
                             </label>
                             <br />
                             <label className="labelColor">
                                 End time:
-                                <input className="popupInput" type ="location" name ="location" />
+                                <input className="popupInput" type ="locationState" name ="locationState" />
                             </label>
                             <br />
                             <label className="labelColor">
@@ -257,7 +344,7 @@ function MainPage() {
                             </label>
                             <br />
                             <label className="eventId">
-                                userId : {location.state.userId}
+                                userId : {locationState.state.userId}
                             </label>
                             <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>

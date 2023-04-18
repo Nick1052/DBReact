@@ -316,8 +316,8 @@ function MainPage() {
                     <button className="controlsB">Delete University</button>
                 </div>
                 <div className="commentControls">
-                    <button className="controlsB">Add comment</button>
-                    <button className="controlsB">Delete comment</button>
+                    <button className="controlsB">Add Comment</button>
+                    <button className="controlsB">Delete Comment</button>
                 </div>
                 <div className="eventsControls">
                     <button className="controlsB">Add Events</button>

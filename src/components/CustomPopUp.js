@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import CloseButton from 'react-bootstrap/CloseButton';
+
 
 
 function Popup(props) {
@@ -366,6 +366,7 @@ function Popup(props) {
             <div className="pop-up-inner">
               <div class="inputValues">
                 {props.children}
+                <button type = "button" className="popup-close-btn" onClick={() => props.setTrigger(false)}>Cancel </button>
                 <button type = "button" className="popup-close-btn" onClick={handleSubmitButton}>Submit</button>
                 {/* {props.children} */}
                 </div>

@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import './App.css';
 import './css/LandingPage.css'
 import './css/MainPage.css'
+import './css/Popup.css'
 
 // Pages
 import LandingPage  from './pages/LandingPage';

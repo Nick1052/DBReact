@@ -12,6 +12,11 @@
     border-radius: 5px; 
     font-family: "Times New Roman";
 }
+.FacebookButton{
+    margin-top: 10px; 
+    margin-left: 10px;
+
+}
 .table-container {
     display: flex;
     justify-content: center;

@@ -303,7 +303,7 @@ function Popup(props) {
         <div className="popup">
             <div className="pop-up-inner">
                 {props.children}
-                <button className="popup-close-btn" onClick={() => props.setTrigger(false)}>Submit</button>
+                <button type = "submit" className="popup-close-btn" onClick={() => props.setTrigger(false)}>Submit</button>
                 {/* {props.children} */}
             </div>
         </div>

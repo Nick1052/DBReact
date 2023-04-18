@@ -9,6 +9,13 @@ function MainPage() {
     const [buttonPopup, setButtonPopup] = useState(false)
     const location = useLocation();
     
+    const buttonFields = {
+        "Create RSO": { userId: "", name: "", description: "" },
+    };
+
+    
+
+
    // console.log(location.state.userId)
 
     // const handleAddEvent = async (event) => {
@@ -361,7 +368,11 @@ function MainPage() {
                     </tbody>
                 </table>
             </div>
-            <Popup trigger= {buttonPopup}>My popup</Popup>
+            <Popup trigger= {buttonPopup} setTrigger = {setButtonPopup}>
+                <form>
+
+                </form>
+            </Popup>
         </div>
     );
   }

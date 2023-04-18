@@ -8,13 +8,11 @@
 .db-table {
     border-collapse: collapse;
     width: 80%;
-    /* border: 1px solid #ddd; */
     border: 4px solid #cb997e;
 
 }
 
 .db-table tbody {
-    /* color: white; */
     color: black;
     background-color: #666;
 }
@@ -26,14 +24,12 @@
 }
 
 .db-table th {
-    /* background-color: #666; */
     background-color: #6b705c;
     color: white;
 }
 
 .db-table td {
     border: 1px solid #ffffff;
-    /* background-color: #080707; */
     background-color: #f1ecdb;
 }
 
@@ -83,8 +79,16 @@
     margin: 4px;
 }
 
-.popup {
-    background-color: #6b705c;
-    height: 200px;
-    width: 200px;
+.popupInput{
+    border: 1px solid gray;
+    width: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+    border-radius: 1em;
+    margin-top: .5em;
+    margin-bottom: .1em;
+    background-color: #ffe8d6;
+}
+.labelColor{
+    color: white;
 }

@@ -248,7 +248,7 @@ function MainPage() {
                                 </select>
                             </label>
                             <br />
-                            {/* <label className="eventId">
+                            <label className="eventId">
                                 userId : {location.state.userId}
                             </label>
                         </form>

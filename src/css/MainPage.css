@@ -1,3 +1,22 @@
+.logOut{
+    margin-left: 90%;
+    margin-top: 20px;
+    font-size: 25px;
+    padding: 5px 10px;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    background: #b7b7a4;
+    border: 2.5px solid;
+    border-radius: 5px; 
+    font-family: "Times New Roman";
+}
+.FacebookButton{
+    margin-top: 10px; 
+    margin-left: 10px;
+
+}
 .table-container {
     display: flex;
     justify-content: center;

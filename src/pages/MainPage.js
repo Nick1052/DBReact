@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import {useNavigate} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 import Popup from "../components/CustomPopUp"
+import {FacebookShareCount, FacebookShareButton, FacebookIcon} from "react-share";
 
 function MainPage() {
     // API 
@@ -35,10 +36,14 @@ function MainPage() {
 
 
    // console.log(location.state.userId)
-  
+    const shareUrl = "www.google.com"; //feed url from backend
+ 
     return (
         <div className="page">
             <div className="controls">
+                <div  className="eventsControls">
+                    <button className="logOut" onClick= {() => console.log('FIX HERE')}>Logout</button>
+                </div>
                 <div className="rsoControls">
                     <button className="controlsB" onClick= {() => handleButtonClick("createRSO")}>Create RSO</button>
                     <button className="controlsB" onClick= {() => handleButtonClick("deleteRSO")}>Delete RSO</button>
@@ -55,9 +60,9 @@ function MainPage() {
                 <div className="eventsControls">
                     <button className="controlsB" onClick= {() => handleButtonClick("addEvent")}>Add Events</button>
                 </div>
-                <div className="eventsControls">
-                    <button className="controlsB" onClick= {() => console.log('FIX ')}>Logout</button>
-                </div>
+                <FacebookShareButton className="FacebookButton" url={shareUrl}>
+                    <FacebookIcon size={50} round /> Facebook Share
+                </FacebookShareButton>
             </div>
             <div className="table-container">
                 <table className="db-table">
@@ -110,9 +115,9 @@ function MainPage() {
                                 <input className="popupInput" type="description" name="description"  />
                             </label>
                             <br />
-                            <label className="eventId">
+                            {/* <label className="eventId">
                                 userId : {location.state.userId}
-                            </label>
+                            </label> */}
                             <br />
                         </form>
                     </div>
@@ -135,9 +140,9 @@ function MainPage() {
                                 <input className="popupInput" type="rsoName" name="rsoName"  />
                             </label>
                             <br />
-                            <label className="eventId">
+                            {/* <label className="eventId">
                                 userId : {location.state.userId}
-                            </label>
+                            </label> */}
                             <br />
                             <label className="eventId">
                                 rsoId : 
@@ -243,10 +248,9 @@ function MainPage() {
                                 </select>
                             </label>
                             <br />
-                            <label className="eventId">
+                            {/* <label className="eventId">
                                 userId : {location.state.userId}
                             </label>
-                            <button type = "submit" className="popup-close-btn" >Submit</button>
                         </form>
                     </div> 
                 }

@@ -1,5 +1,5 @@
-import React, {useState} from "react"
-import {Navigate, useNavigate} from 'react-router-dom'
+import React, {useEffect, useState} from "react"
+import {useNavigate} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 import Popup from "../components/CustomPopUp"
 import {FacebookShareCount, FacebookShareButton, FacebookIcon} from "react-share";
@@ -16,6 +16,10 @@ function MainPage() {
     const [date, setDate] = useState("");
     const [eventType, setEventType] = useState("");
     const [rsoId, setRsoId] = useState("");
+    const [data, setData] = useState([]);
+    const [rsoData, setRsoData] = useState([]);
+    const [myRso, setMyRso] = useState([])
+    const navigate = useNavigate();
 
     // Holds userRole and userId
     const locationState = useLocation();
@@ -67,11 +71,15 @@ function MainPage() {
     }
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        console.log(popupType)
+    
         switch(popupType) {
-                // case "createRSO": handleCreateRSO(); break;
+                case "createRSO": 
+                    handleCreateRSO(event); 
+                    break;
                 // case "deleteRSO": handleDeleteRSO(); break;
-                // case "joinRSO": handleJoinRSO(); break;
+                case "joinRSO":
+                    handleJoinRSO(event); 
+                    break;
                 // case "addUniversity": handleAddUniversity(); break;
                 // case "deleteUniversity": handleDeleteUniversity(); break;
                 // case "addComment": handleAddComment(); break;
@@ -83,11 +91,36 @@ function MainPage() {
         setButtonPopup(false)
         
     }
+    
+    // FUNCTIONAL
+    const handleCreateRSO = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await fetch("http://127.0.0.1:5000/createRSO", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "userId" : locationState.state.userId,
+                        "name" : name,
+                        "description" : description,
+                      }
+                ),
+            });
 
+            const data = await response.json();
+            console.log(data);
+            // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+    // ALL EVENTS WORK FUNCTIONAL
     const handleAddEvent = async (event) => {
         event.preventDefault();
         try {
-
             const response = await fetch("http://127.0.0.1:5000/createEvent", {
                 method: "POST",
                 headers: {
@@ -104,7 +137,7 @@ function MainPage() {
                         "end_time" : endTime,
                         "date" : date,
                         "eventType" : eventType,
-                        "rsoId" : 0
+                        "rsoId" : rsoId
                     }
                 ),
             });
@@ -117,6 +150,105 @@ function MainPage() {
         }
     };
 
+    // FUNCTIONAL
+    const handleJoinRSO = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await fetch("http://127.0.0.1:5000/joinRSO", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "userId" : locationState.state.userId,
+                        "rsoId" : rsoId,
+                    }
+                ),
+            });
+
+            const data = await response.json();
+            console.log(data);
+            // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+
+    // Fetches Events
+    useEffect(() => {
+        const fetchData = () => {
+            fetch("http://127.0.0.1:5000/viewEvents")
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.events)
+                if(Array.isArray(data.events)) 
+                    setData(data.events)
+                else
+                    console.log('Not array')
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        };
+
+        const intervalId = setInterval(fetchData, 10000); // Fetch data every 10 seconds
+        return () => clearInterval(intervalId); // Cleanup function to clear the interval when the component is unmounted
+    }, []);
+    
+    // Fetches RSOs
+    useEffect(() => {
+        const fetchData = () => {
+            fetch("http://127.0.0.1:5000/viewRSOs")
+            .then((response) => response.json())
+            .then((data) => {
+                if(Array.isArray(data.RSOs)) 
+                    setRsoData(data.RSOs)
+                else
+                    console.log('Not array')
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        };
+
+        const intervalId = setInterval(fetchData, 10000); // Fetch data every 10 seconds
+        return () => clearInterval(intervalId); // Cleanup function to clear the interval when the component is unmounted
+    }, []);
+
+    // Fetches My RSOs
+    useEffect(() => {
+        const fetchData = () => {
+            fetch("http://127.0.0.1:5000/viewMyRSOs", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "userId" : locationState.state.userId,
+                    }
+                ),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if(Array.isArray(data.RSOs)){
+                    console.log(data.RSOs)
+                    setMyRso(data.RSOs)
+                }
+                else
+                    console.log('Not array')
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        };
+
+        const intervalId = setInterval(fetchData, 10000); // Fetch data every 10 seconds
+        return () => clearInterval(intervalId); // Cleanup function to clear the interval when the component is unmounted
+    }, []);
+    
+  
 
    // console.log(locationState.state.userId)
     const shareUrl = "www.google.com"; //feed url from backend
@@ -125,24 +257,34 @@ function MainPage() {
         <div className="page">
             <div className="controls">
                 <div  className="eventsControls">
-                    <button className="logOut" onClick= {() => Navigate('/')}>Logout</button>
+                    <button className="logOut" onClick= {() => navigate('/pages/LandingPage.js')}>Logout</button>
                 </div>
+                {(locationState.state.userRole === 'admin' || locationState.state.userRole ==='superadmin') && (
                 <div className="rsoControls">
                     <button className="controlsB" onClick= {() => handleButtonClick("createRSO")}>Create RSO</button>
-                    <button className="controlsB" onClick= {() => handleButtonClick("deleteRSO")}>Delete RSO</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("deleteRSO")}>Delete RSO</button> 
+                </div>
+                )}
+                <div className="rsoControls">
                     <button className="controlsB" onClick= {() => handleButtonClick("joinRSO")}>Join RSO</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("viewMyRSOs")}>View my RSOs</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("leaveRSOs")}>Leave RSO</button>
                 </div>
-                <div className="universityControls">
-                    <button className="controlsB" onClick= {() => handleButtonClick("addUniversity")}>Add University</button>
-                    <button className="controlsB" onClick= {() => handleButtonClick("deleteUniversity")}>Delete University</button>
-                </div>
+                {(locationState.state.userRole === 'superadmin') && (
+                    <div className="universityControls">
+                        <button className="controlsB" onClick= {() => handleButtonClick("addUniversity")}>Add University</button>
+                        <button className="controlsB" onClick= {() => handleButtonClick("deleteUniversity")}>Delete University</button>
+                    </div>
+                )}
                 <div className="commentControls">
                     <button className="controlsB" onClick= {() => handleButtonClick("addComment")}>Add Comment</button>
                     <button className="controlsB" onClick= {() => handleButtonClick("deleteComment")}>Delete Comment</button>
                 </div>
-                <div className="eventsControls">
-                    <button className="controlsB" onClick= {() => handleButtonClick("addEvent")}>Add Events</button>
-                </div>
+                {(locationState.state.userRole === 'admin' || locationState.state.userRole ==='superadmin') && (
+                    <div className="eventsControls">
+                        <button className="controlsB" onClick= {() => handleButtonClick("addEvent")}>Add Events</button>
+                    </div>
+                )}
                 <FacebookShareButton className="FacebookButton" url={shareUrl}>
                     <FacebookIcon size={50} round /> Facebook Share
                 </FacebookShareButton>
@@ -155,7 +297,7 @@ function MainPage() {
                             <th>URL</th>
                             <th>Description</th>
                             <th>Date</th>
-                            <th>locationState</th>
+                            <th>location</th>
                             <th>Start time</th>
                             <th>End time</th>
                             <th>Type of Event</th>
@@ -164,38 +306,40 @@ function MainPage() {
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                            <td>Name</td>
-                            <td>URL</td>
-                            <td>Description</td>
-                            <td>Date</td>
-                            <td>locationState</td>
-                            <td>Start time</td>
-                            <td>End time</td>
-                            <td>Type of event</td>
-                            <td>
-                                <button className="modify" onClick={() => handleButtonClick("editEvent")}>Edit</button>
-                                <button className="modify" onClick={() => handleButtonClick("deleteEvent")}>Delete</button>
-                                <button className="modify" onClick={() => handleButtonClick("viewComments")}>View Comments</button>
-                            </td>
-                            <td className="eventId">eventId</td>
+                        {data.map((row) => (
+                            <tr key = {row.eventId}>
+                                <td>{row.name}</td>
+                                <td>{row.URL}</td>
+                                <td>{row.description}</td>
+                                <td>{row.date}</td>
+                                <td>{row.Location}</td>
+                                <td>{row.start_time}</td>
+                                <td>{row.end_time}</td>
+                                <td>{row.eventType}</td>
+                                <td>
+                                    <button className="modify" onClick={() => handleButtonClick("editEvent")}>Edit</button>
+                                    <button className="modify" onClick={() => handleButtonClick("deleteEvent")}>Delete</button>
+                                    <button className="modify" onClick={() => handleButtonClick("viewComments")}>View Comments</button>
+                                </td>
+                                <td className="eventId">{row.eventId}</td>
 
-                        </tr>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
             <Popup trigger= {buttonPopup} setTrigger = {setButtonPopup}>
                 {popupType === "createRSO" && 
                     <div>
-                        <form>
+                        <form onSubmit={handleFormSubmit}>
                             <label className="labelColor">
                                 RSO name:
-                                <input className="popupInput" type="rsoName" name="rsoName"  />
+                                <input className="popupInput" type="name" name="name" onChange={handleNameChange} />
                             </label>
                             <br />
                             <label className="labelColor">
                                 Description:
-                                <input className="popupInput" type="description" name="description"  />
+                                <input className="popupInput" type="description" name="description"onChange={handleDescriptionChange} />
                             </label>
                             <br />
                             {/* <label className="eventId">
@@ -217,21 +361,35 @@ function MainPage() {
                         </form>
                     </div>
                 }
-                {popupType === "joinRSO" && 
+                {popupType === "viewMyRSOs" && 
                     <div>
                         <form>
+                        <label className="labelColor">
+                                My RSOs
+                                <select>
+                                        <option value =""></option>
+                                        {myRso.map(rso=>(
+                                        <option key = {rso.rsoId} value = {rso.rsoId}>{rso.name}</option>
+                                    ))}
+                                </select>
+                            </label>
+                            <br />
+                        </form>
+                    </div>
+                }
+                {popupType === "joinRSO" && 
+                    <div>
+                        <form onSubmit={handleFormSubmit}>
                             <label className="labelColor">
-                                RSO name:
-                                <input className="popupInput" type="rsoName" name="rsoName"  />
+                                Choose an RSO
+                                <select onChange={handleRsoIdChange}>
+                                        <option value =""></option>
+                                        {rsoData.map(rso=>(
+                                        <option key = {rso.rsoId} value = {rso.rsoId}>{rso.name}</option>
+                                    ))}
+                                </select>
                             </label>
                             <br />
-                            {/* <label className="eventId">
-                                userId : {locationState.state.userId}
-                            </label> */}
-                            <br />
-                            <label className="eventId">
-                                rsoId : 
-                            </label>
                             <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
@@ -339,6 +497,17 @@ function MainPage() {
                                 </select>
                             </label>
                             <br />
+                            {eventType === 'rso' && (
+                            <label className="labelColor">
+                                RSOs:
+                                <select onChange={handleRsoIdChange}>
+                                    <option value =""></option>
+                                    {rsoData.map(rso=>(
+                                    <option key = {rso.rsoId} value = {rso.rsoId}>{rso.name}</option>
+                                ))}
+                                </select>
+                            </label>
+                            )}
                             <label className="eventId">
                                 userId : {locationState.state.userId}
                             </label>

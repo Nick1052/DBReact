@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {useNavigate} from 'react-router-dom'
+import {Navigate, useNavigate} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 import Popup from "../components/CustomPopUp"
 import {FacebookShareCount, FacebookShareButton, FacebookIcon} from "react-share";
@@ -42,7 +42,7 @@ function MainPage() {
         <div className="page">
             <div className="controls">
                 <div  className="eventsControls">
-                    <button className="logOut" onClick= {() => console.log('FIX HERE')}>Logout</button>
+                    <button className="logOut" onClick= {() => Navigate('/')}>Logout</button>
                 </div>
                 <div className="rsoControls">
                     <button className="controlsB" onClick= {() => handleButtonClick("createRSO")}>Create RSO</button>
@@ -91,9 +91,9 @@ function MainPage() {
                             <td>End time</td>
                             <td>Type of event</td>
                             <td>
-                                <button className="modify">Edit</button>
-                                <button className="modify">Delete</button>
-                                <button className="modify">View Comments</button>
+                                <button className="modify" onClick={() => handleButtonClick("editEvent")}>Edit</button>
+                                <button className="modify" onClick={() => handleButtonClick("deleteEvent")}>Delete</button>
+                                <button className="modify" onClick={() => handleButtonClick("viewComments")}>View Comments</button>
                             </td>
                             <td className="eventId">eventId</td>
 
@@ -119,6 +119,7 @@ function MainPage() {
                                 userId : {location.state.userId}
                             </label> */}
                             <br />
+                            <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
                 }
@@ -129,6 +130,7 @@ function MainPage() {
                                 PlaceHolder
                             </label>
                             <br />
+                            <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
                 }
@@ -147,6 +149,7 @@ function MainPage() {
                             <label className="eventId">
                                 rsoId : 
                             </label>
+                            <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
                 }
@@ -157,6 +160,7 @@ function MainPage() {
                                 University Name:
                                 <input className="popupInput" type="universityName" name="universityName"  />
                             </label>
+                            <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
                 }
@@ -167,6 +171,7 @@ function MainPage() {
                                 University Name:
                                 <input className="popupInput" type="universityName" name="universityName"  />
                             </label>
+                            <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
                 }
@@ -177,6 +182,7 @@ function MainPage() {
                                 Placeholder
                             </label>
                             <br />
+                            <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
                 }
@@ -187,6 +193,7 @@ function MainPage() {
                                 Placeholder
                             </label>
                             <br />
+                            <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
                 }
@@ -197,6 +204,7 @@ function MainPage() {
                                 PlaceHolder
                             </label>
                             <br />
+                            <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
                 }
@@ -251,8 +259,39 @@ function MainPage() {
                             <label className="eventId">
                                 userId : {location.state.userId}
                             </label>
+                            <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div> 
+                }
+                {popupType === "viewComments" && 
+                    <div>
+                        <table>
+                        <thead>
+                        <tr>
+                            <th>Comment</th>
+                            <th>Email</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                            <td>Hello Students</td>
+                            <td>vu@ucf.edu</td>
+                        </tr>
+                    </tbody>
+                        </table>
+                    </div>
+                }
+                {popupType === "editEvent" && 
+                    <div>
+                        <label>PlaceHolder</label>
+                    </div>
+                }
+                {popupType === "deleteEvent" && 
+                    <div>
+                       <button>Are you sure you want to delete?</button>
+                       <button type ='button' className="popup-close-btn">Submit</button>
+                    </div>
                 }
             </Popup>
         </div>

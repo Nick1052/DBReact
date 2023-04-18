@@ -22,7 +22,7 @@ body {
 }
 
 .page-title {
-    color: white;
+    color: #b7b7a4;
     position: absolute;
     top: 0;
     left: 50%;
@@ -50,6 +50,7 @@ input[type = email] {
     border-radius: 1em;
     margin-top: .5em;
     margin-bottom: .1em;
+    background-color: #ffe8d6;
 }
 
 input[type = password] {
@@ -60,6 +61,7 @@ input[type = password] {
     border-radius: 1em;
     margin-top: .5em;
     margin-bottom: .1em;
+    background-color: #ffe8d6;
 }
 
 input[type = university] {
@@ -70,6 +72,7 @@ input[type = university] {
     border-radius: 1em;
     margin-top: .5em;
     margin-bottom: .05em;
+    background-color: #ffe8d6;
 }
 select {
     border: 1px solid gray;
@@ -79,14 +82,20 @@ select {
     border-radius: 1em;
     margin-top: .5em;
     margin-bottom: .5em;
+    background-color: #ffe8d6;
 }
 
 button[type = submit] {
-    border: 1px solid gray;
     width: 100%;
-    padding: 1em;
-    box-sizing: border-box;
-    border-radius: 1em;
-    margin-top: .5em;
-    margin-bottom: .05em;
+    margin: 5px;
+    font-size: 25px;
+    padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    background: #6b705c;
+    border: 2.5px solid #b7b7a4;
+    border-radius: 5px; 
+    font-family: "Times New Roman";
 }

@@ -315,13 +315,12 @@ function MainPage() {
                     <button className="controlsB">Add University</button>
                     <button className="controlsB">Delete University</button>
                 </div>
-                <div className="eventsControls">
-                    <button className="controlsB">Add Events</button>
-        
-                </div>
                 <div className="commentControls">
                     <button className="controlsB">Add comment</button>
                     <button className="controlsB">Delete comment</button>
+                </div>
+                <div className="eventsControls">
+                    <button className="controlsB">Add Events</button>
                 </div>
             </div>
             <div className="table-container">
@@ -351,8 +350,8 @@ function MainPage() {
                             <td>End time</td>
                             <td>Type of event</td>
                             <td>
-                                <button>edit</button>
-                                <button>delete</button>
+                                <button class="modify">Edit</button>
+                                <button class="modify">Delete</button>
                             </td>
                             <td className="eventId">eventId</td>
 

@@ -110,7 +110,7 @@ function LandingPage() {
 
   return (
     <div className="landing-page-container">
-        <h1 className="page-title">Events Database</h1>
+        <h1 className="page-title">University Events</h1>
         <div className="landing-page-column">
             <h2>Login</h2>
             <form onSubmit={handleLoginSubmit}>

@@ -14,13 +14,20 @@
     transform: translate(-50%, -50%);
     border: 5px solid#cb997e;
     padding: 10px 10px;
+    overflow: auto;
 }
 .pop-up-inner{
-    width: 450px;
-    height: 450px;
+    width: 525px;
+    height: 605px;
     /* background-color: #ddbea9; */
 }
-.pop-up-inner .popup-close-btn{
+.inputValues{
+    margin: 10px;
+
+
+}
+.pop-up-inner .inputValues .popup-close-btn{
+    max-width: 100px;
     margin: 5px;
     font-size: 25px;
     padding: 5px 10px;

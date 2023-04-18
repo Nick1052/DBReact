@@ -75,7 +75,7 @@ function MainPage() {
                     </tbody>
                 </table>
             </div>
-            <Popup trigger= {buttonPopup} setTrigger = {setButtonPopup}>
+            <Popup trigger= {buttonPopup} setTrigger = {setButtonPopup} popupType = {popupType}>
                 {popupType === "createRSO" && 
                     <div>
                         <form>
@@ -161,17 +161,7 @@ function MainPage() {
                                 Placeholder
                             </label>
                             <br />
-                        </form>
-                    </div>
-                }
-                {popupType === "addComment" && 
-                    <div>
-                        <form>
-                            <label>
-                                PlaceHolder
-                            </label>
-                            <br />
-                        </form>
+                        </form>n
                     </div>
                 }
                 {popupType === "addEvent" && 

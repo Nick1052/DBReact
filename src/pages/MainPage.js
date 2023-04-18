@@ -21,6 +21,9 @@ function MainPage() {
     return (
         <div className="page">
             <div className="controls">
+                <div  className="eventsControls">
+                    <button class="logOut" className="controlsB" onClick= {() => console.log('FIX HERE')}>Logout</button>
+                </div>
                 <div className="rsoControls">
                     <button className="controlsB" onClick= {() => handleButtonClick("createRSO")}>Create RSO</button>
                     <button className="controlsB" onClick= {() => handleButtonClick("deleteRSO")}>Delete RSO</button>
@@ -36,9 +39,6 @@ function MainPage() {
                 </div>
                 <div className="eventsControls">
                     <button className="controlsB" onClick= {() => handleButtonClick("addEvent")}>Add Events</button>
-                </div>
-                <div className="eventsControls">
-                    <button className="controlsB" onClick= {() => console.log('FIX HERE')}>Logout</button>
                 </div>
             </div>
             <div className="table-container">

@@ -19,7 +19,6 @@ function MainPage() {
 
     // Holds userRole and userId
     const locationState = useLocation();
-
     // Buttons for Forms
     const [buttonPopup, setButtonPopup] = useState(false)
     const [popupType, setPopupType] = useState("")
@@ -78,7 +77,7 @@ function MainPage() {
                 // case "addComment": handleAddComment(); break;
                 // case "deleteComment": handleDeleteComment(); break;
                 case "addEvent": 
-                    handleAddEvent(); 
+                    handleAddEvent(event); 
                     break;
         }
         setButtonPopup(false)
@@ -89,33 +88,30 @@ function MainPage() {
         event.preventDefault();
         try {
 
-        
+            const response = await fetch("http://127.0.0.1:5000/createEvent", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "userId" : locationState.state.userId,
+                        "location" : location,
+                        "name" : name,
+                        "description" : description,
+                        "url" : url,
+                        "start_time" : startTime,
+                        "end_time" : endTime,
+                        "date" : date,
+                        "eventType" : eventType,
+                        "rsoId" : 0
+                    }
+                ),
+            });
 
-        
-        const response = await fetch("http://127.0.0.1:5000/createEvent", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(
-                {
-                    "userId" : locationState.userId,
-                    "location" : location,
-                    "name" : name,
-                    "description" : description,
-                    "url" : url,
-                    "start_time" : startTime,
-                    "end_time" : endTime,
-                    "date" : date,
-                    "eventType" : eventType,
-                    "rsoId" : 0
-                  }
-            ),
-        });
-
-        const data = await response.json();
-        console.log(data);
-        // TODO: Handle response data
+            const data = await response.json();
+            console.log(data);
+            // TODO: Handle response data
         } catch (error) {
         console.error(error);
         }
@@ -159,7 +155,7 @@ function MainPage() {
                             <th>URL</th>
                             <th>Description</th>
                             <th>Date</th>
-                            <th>Location</th>
+                            <th>locationState</th>
                             <th>Start time</th>
                             <th>End time</th>
                             <th>Type of Event</th>
@@ -173,7 +169,7 @@ function MainPage() {
                             <td>URL</td>
                             <td>Description</td>
                             <td>Date</td>
-                            <td>Location</td>
+                            <td>locationState</td>
                             <td>Start time</td>
                             <td>End time</td>
                             <td>Type of event</td>
@@ -300,42 +296,42 @@ function MainPage() {
                         <form onSubmit={handleFormSubmit}>
                             <label className="labelColor">
                                 Event Name:
-                                <input className="popupInput" type ="name"  />
+                                <input className="popupInput" type ="name" onChange={handleNameChange}/>
                             </label>
                             <br />
                             <label className="labelColor">
                                 Event URL:
-                                <input className="popupInput" type ="text" name ="url" />
+                                <input className="popupInput" type ="text" name ="url" onChange={handleUrlChange}/>
                             </label>
                             <br />
                             <label className="labelColor">
                                 Event Description:
-                                <input className="popupInput" type ="description" name ="description" />
+                                <input className="popupInput" type ="description" name ="description" onChange={handleDescriptionChange}/>
                             </label>
                             <br />
                             <label className="labelColor">
                                 Event Date:
-                                <input className="popupInput" type ="date" name ="date" />
+                                <input className="popupInput" type ="date" name ="date" onChange={handleDateChange} />
                             </label>
                             <br />
                             <label className="labelColor">
-                                Event Location:
-                                <input className="popupInput" type ="locationState" name ="locationState" />
+                                Event location:
+                                <input className="popupInput" type ="location" name ="location" onChange={handleLocationChange} />
                             </label>
                             <br />
                             <label className="labelColor">
                                 Start time:
-                                <input className="popupInput" type ="locationState" name ="locationState" />
+                                <input className="popupInput" type ="locationState" name ="locationState" onChange={handleStartTimeChange}/>
                             </label>
                             <br />
                             <label className="labelColor">
                                 End time:
-                                <input className="popupInput" type ="locationState" name ="locationState" />
+                                <input className="popupInput" type ="locationState" name ="locationState" onChange={handleEndTimeChange} />
                             </label>
                             <br />
                             <label className="labelColor">
                                 Type of Event:
-                                <select>
+                                <select onChange={handleEventTypeChange}>
                                     <option value =""></option>
                                     <option value="public">Public</option>
                                     <option value="private">Private</option>
@@ -344,7 +340,7 @@ function MainPage() {
                             </label>
                             <br />
                             <label className="eventId">
-                                userId : {location.state.userId}
+                                userId : {locationState.state.userId}
                             </label>
                             <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>

@@ -19,12 +19,9 @@
 .pop-up-inner{
     width: 525px;
     height: 605px;
-    /* background-color: #ddbea9; */
 }
 .inputValues{
     margin: 10px;
-
-
 }
 .pop-up-inner .inputValues .popup-close-btn{
     max-width: 100px;

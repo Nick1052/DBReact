@@ -1,10 +1,12 @@
 import React, {useState} from "react"
 import {useNavigate} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
+import Popup from "../components/CustomPopUp"
 
 function MainPage() {
     const[events, setEvents] = useState("")
     const[rsos, setRsos] = useState("")
+    const [buttonPopup, setButtonPopup] = useState(false)
     const location = useLocation();
     
    // console.log(location.state.userId)
@@ -307,7 +309,7 @@ function MainPage() {
         <div className="page">
             <div className="controls">
                 <div className="rsoControls">
-                    <button className="controlsB">Create RSO</button>
+                    <button className="controlsB" onClick= {() => setButtonPopup(true)}>Create RSO</button>
                     <button className="controlsB">Delete RSO</button>
                     <button className="controlsB">Join RSO</button>
                 </div>
@@ -359,6 +361,7 @@ function MainPage() {
                     </tbody>
                 </table>
             </div>
+            <Popup trigger= {buttonPopup}>My popup</Popup>
         </div>
     );
   }

@@ -6,10 +6,14 @@ import React, { useEffect, useState } from "react";
 import './App.css';
 import './css/LandingPage.css'
 import './css/MainPage.css'
+
 // Pages
 import LandingPage  from './pages/LandingPage';
 import MainPage from './pages/MainPage'
 
+
+// Components
+import Popup from "./components/CustomPopUp";
 
 function App() {
   return (

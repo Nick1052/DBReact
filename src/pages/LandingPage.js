@@ -104,6 +104,7 @@ function LandingPage() {
             setPassword("")
         }
     },[isSubmitted])
+    
   const userToMainPage = () => {
     navigate("/pages/MainPage.js", {state: user})
   };

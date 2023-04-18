@@ -16,9 +16,16 @@ function MainPage() {
     const [date, setDate] = useState("");
     const [eventType, setEventType] = useState("");
     const [rsoId, setRsoId] = useState("");
+    const [universityId, setUniversityId] = useState("")
     const [data, setData] = useState([]);
     const [rsoData, setRsoData] = useState([]);
     const [myRso, setMyRso] = useState([])
+    const [universities, setUniversities] = useState([])
+    const [currentComment, setCurrentComments] = useState([])
+    const [myComments, setMyComments] = useState([])
+    const [comment, setComment] = useState("")
+    const [commentId, setCommentId] = useState("")
+    const [eventId, setEventId] = useState("")
     const navigate = useNavigate();
 
     // Holds userRole and userId
@@ -28,7 +35,17 @@ function MainPage() {
     const [popupType, setPopupType] = useState("")
 
     // Handleers
+    const handleCommentIdChange = (event) => {
+        setCommentId(event.target.value);
+      };
 
+    const handleUniversityIdChange = (event) => {
+        setUniversityId(event.target.value);
+      };
+    
+      const handleEventIdChange = (event) => {
+        setEventId(event.target.value);
+      };
 
     const handleLocationChange = (event) => {
         setLocation(event.target.value);
@@ -61,6 +78,9 @@ function MainPage() {
       const handleEventTypeChange = (event) => {
         setEventType(event.target.value);
       };
+      const handleCommentChange = (event) => {
+        setComment(event.target.value);
+      };
       
       const handleRsoIdChange = (event) => {
         setRsoId(event.target.value);
@@ -69,6 +89,11 @@ function MainPage() {
         setPopupType(type)
         setButtonPopup(true)
     }
+    const handleViewComment = (type ,eventId) => {
+        getViewComment(eventId)
+        setPopupType(type)
+        setButtonPopup(true)
+    } 
     const handleFormSubmit = (event) => {
         event.preventDefault();
     
@@ -80,10 +105,25 @@ function MainPage() {
                 case "joinRSO":
                     handleJoinRSO(event); 
                     break;
-                // case "addUniversity": handleAddUniversity(); break;
-                // case "deleteUniversity": handleDeleteUniversity(); break;
-                // case "addComment": handleAddComment(); break;
-                // case "deleteComment": handleDeleteComment(); break;
+                case "leaveRSO":
+                    handleLeaveRSO(event);
+                    break;
+                case "deleteRSO":
+                    handleDeleteRSO(event);
+                    break;
+                case "deleteUniversity":
+                    handleDeleteUniversity(event);
+                    break
+                case "addUniversity":
+                    handleAddUniversity(event); // DO THIS
+                    break;
+                
+                case "addComment": 
+                    handleAddComment(event); 
+                    break;
+                case "deleteComment": 
+                    handleDeleteComment(event); 
+                    break;
                 case "addEvent": 
                     handleAddEvent(event); 
                     break;
@@ -91,7 +131,204 @@ function MainPage() {
         setButtonPopup(false)
         
     }
-    
+    const getViewComment = async (eventId) => {
+        //eventId.preventDefault();
+        console.log(eventId)
+        try {
+            const response = await fetch("http://127.0.0.1:5000/getComments", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+        
+                        "eventId": eventId
+                    }
+                ),
+            });
+            const data = await response.json();
+            console.log(data.comments);
+            console.log('getting')
+            setCurrentComments(data.comments)
+            // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+
+    const handleDeleteComment = async (event) => {
+        event.preventDefault();
+        console.log('deleting')
+        try {
+            const response = await fetch("http://127.0.0.1:5000/deleteComment", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "commentId" : commentId
+                    }
+                ),
+            });
+            const data = await response.json();
+            console.log(data);
+            // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+
+    const handleAddComment = async (event) => {
+        event.preventDefault();
+        console.log('adding')
+        try {
+            const response = await fetch("http://127.0.0.1:5000/addComment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "userId" : locationState.state.userId,
+                        "eventId": eventId,
+                        "comment": comment
+                    }
+                ),
+            });
+            const data = await response.json();
+            console.log(data);
+            // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+
+    const handleDelteComment = async (event) => {
+        event.preventDefault();
+        console.log('adding')
+        try {
+            const response = await fetch("http://127.0.0.1:5000/deleteComment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "userId" : locationState.state.userId,
+                        "eventId": eventId,
+                        "comment": comment
+                    }
+                ),
+            });
+            const data = await response.json();
+            console.log(data);
+            // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+
+    // FUNCTIONAL
+    const handleAddUniversity = async (event) => {
+        event.preventDefault();
+        console.log('adding')
+        try {
+            const response = await fetch("http://127.0.0.1:5000/addUniversity", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+        
+                        "name": name
+                    }
+                ),
+            });
+            const data = await response.json();
+            console.log(data);
+            // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+    // FUNCTIONAL
+    const handleDeleteUniversity = async (event) => {
+        event.preventDefault();
+        console.log('deleting')
+        try {
+            const response = await fetch("http://127.0.0.1:5000/deleteUniversity", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+        
+                        "universityId" : universityId,
+                    }
+                ),
+            });
+            const data = await response.json();
+            console.log(data);
+            // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+    // FUNCTIONAL
+    const handleDeleteRSO = async (event) => {
+        event.preventDefault();
+        console.log('deleting')
+        try {
+            const response = await fetch("http://127.0.0.1:5000/deleteRSO", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+        
+                        "rsoId" : rsoId,
+                    }
+                ),
+            });
+            const data = await response.json();
+            console.log(data);
+            // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+
+    // Functional
+    const handleLeaveRSO = async (event) => {
+        event.preventDefault();
+        
+        try {
+            const response = await fetch("http://127.0.0.1:5000/leaveRSO", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "userId" : locationState.state.userId,
+                        "rsoId" : rsoId,
+                    }
+                ),
+            });
+
+            const data = await response.json();
+            console.log(data);
+            // TODO: Handle response data
+        } catch (error) {
+        console.error(error);
+        }
+    };
+
     // FUNCTIONAL
     const handleCreateRSO = async (event) => {
         event.preventDefault();
@@ -244,11 +481,63 @@ function MainPage() {
             });
         };
 
+        
+
         const intervalId = setInterval(fetchData, 10000); // Fetch data every 10 seconds
         return () => clearInterval(intervalId); // Cleanup function to clear the interval when the component is unmounted
     }, []);
     
-  
+    useEffect(() => {
+        const fetchData = () => {
+            fetch("http://127.0.0.1:5000/myComments", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "userId" : locationState.state.userId,
+                    }
+                ),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if(Array.isArray(data.myComments)){
+                    console.log(data.myComments)
+                    setMyComments(data.myComments)
+                }
+                else
+                    console.log('Not array')
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        };
+
+        
+
+        const intervalId = setInterval(fetchData, 10000); // Fetch data every 10 seconds
+        return () => clearInterval(intervalId); // Cleanup function to clear the interval when the component is unmounted
+    }, []);
+
+    useEffect(() => {
+        const fetchData = () => {
+            fetch("http://127.0.0.1:5000/viewUniversities")
+            .then((response) => response.json())
+            .then((data) => {
+                if(Array.isArray(data.universities)) 
+                    setUniversities(data.universities)
+                else
+                    console.log('Not array')
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        };
+
+        const intervalId = setInterval(fetchData, 10000); // Fetch data every 10 seconds
+        return () => clearInterval(intervalId); // Cleanup function to clear the interval when the component is unmounted
+    }, []);
 
    // console.log(locationState.state.userId)
     const shareUrl = "www.google.com"; //feed url from backend
@@ -268,7 +557,7 @@ function MainPage() {
                 <div className="rsoControls">
                     <button className="controlsB" onClick= {() => handleButtonClick("joinRSO")}>Join RSO</button>
                     <button className="controlsB" onClick= {() => handleButtonClick("viewMyRSOs")}>View my RSOs</button>
-                    <button className="controlsB" onClick= {() => handleButtonClick("leaveRSOs")}>Leave RSO</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("leaveRSO")}>Leave RSO</button>
                 </div>
                 {(locationState.state.userRole === 'superadmin') && (
                     <div className="universityControls">
@@ -313,13 +602,13 @@ function MainPage() {
                                 <td>{row.description}</td>
                                 <td>{row.date}</td>
                                 <td>{row.Location}</td>
-                                <td>{row.start_time}</td>
+                                <td>{row.start_time}</td> 
                                 <td>{row.end_time}</td>
                                 <td>{row.eventType}</td>
                                 <td>
                                     <button className="modify" onClick={() => handleButtonClick("editEvent")}>Edit</button>
                                     <button className="modify" onClick={() => handleButtonClick("deleteEvent")}>Delete</button>
-                                    <button className="modify" onClick={() => handleButtonClick("viewComments")}>View Comments</button>
+                                    <button className="modify" onClick={() => handleViewComment("viewComments", row.eventId)}>View Comments</button>
                                 </td>
                                 <td className="eventId">{row.eventId}</td>
 
@@ -329,6 +618,7 @@ function MainPage() {
                 </table>
             </div>
             <Popup trigger= {buttonPopup} setTrigger = {setButtonPopup}>
+                {/* WORKING */}
                 {popupType === "createRSO" && 
                     <div>
                         <form onSubmit={handleFormSubmit}>
@@ -342,29 +632,43 @@ function MainPage() {
                                 <input className="popupInput" type="description" name="description"onChange={handleDescriptionChange} />
                             </label>
                             <br />
-                            {/* <label className="eventId">
-                                userId : {locationState.state.userId}
-                            </label> */}
-                            <br />
-                            <button type ='submit' className="popup-close-btn">Submit</button>
-                        </form>
-                    </div>
-                }
-                {popupType === "deleteRSO" && 
-                    <div>
-                        <form>
                             <label className="labelColor">
-                                PlaceHolder
+                                Emails:
+                                <input className="popupInput" type="description" name="description" />
+                                <input className="popupInput" type="description" name="description" />
+                                <input className="popupInput" type="description" name="description" />
+                                <input className="popupInput" type="description" name="description" />
+                                <input className="popupInput" type="description" name="description" />
                             </label>
                             <br />
+                            <br />
                             <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
                 }
+                {/* WORKING */}
+                {popupType === "deleteRSO" && 
+                    <div>
+                        <form onSubmit={handleFormSubmit}>
+                            <label className="labelColor">
+                                Choose an RSO
+                                <select onChange={handleRsoIdChange}>
+                                        <option value =""></option>
+                                        {rsoData.map(rso=>(
+                                        <option key = {rso.rsoId} value = {rso.rsoId}>{rso.name}</option>
+                                    ))}
+                                </select>
+                            </label>
+                            <br />
+                            <button type ='submit' className="popup-close-btn">submit</button>
+                        </form>
+                    </div>
+                }
+                {/* WORKING */}
                 {popupType === "viewMyRSOs" && 
                     <div>
                         <form>
-                        <label className="labelColor">
+                            <label className="labelColor">
                                 My RSOs
                                 <select>
                                         <option value =""></option>
@@ -377,6 +681,7 @@ function MainPage() {
                         </form>
                     </div>
                 }
+                {/* WORKING */}
                 {popupType === "joinRSO" && 
                     <div>
                         <form onSubmit={handleFormSubmit}>
@@ -394,61 +699,101 @@ function MainPage() {
                         </form>
                     </div>
                 }
+                {/* WORKING */}
+                {popupType === "leaveRSO" && 
+                    <div>
+                        <form onSubmit={handleFormSubmit}>
+                            <label className="labelColor">
+                                Choose an RSO
+                                <select onChange={handleRsoIdChange}>
+                                        <option value =""></option>
+                                        {myRso.map(rso=>(
+                                        <option key = {rso.rsoId} value = {rso.rsoId}>{rso.name}</option>
+                                    ))}
+                                </select>
+                            </label>
+                            <br />
+                            <button type ='submit' className="popup-close-btn">Leave</button>
+                        </form>
+                    </div>
+                }
+                {/* WORKING */}
                 {popupType === "addUniversity" && 
                     <div>
-                        <form>
+                        <form onSubmit={handleFormSubmit}>
                             <label className="labelColor">
                                 University Name:
-                                <input className="popupInput" type="universityName" name="universityName"  />
+                                <input className="popupInput" type="universityName" name="universityName" onChange={handleNameChange} />
                             </label>
                             <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div>
                 }
+                {/* WORKING */}
                 {popupType === "deleteUniversity" && 
                     <div>
-                        <form>
+                        <form onSubmit={handleFormSubmit}>
                             <label className="labelColor">
-                                University Name:
-                                <input className="popupInput" type="universityName" name="universityName"  />
+                                Universities:
+                                <select onChange={handleUniversityIdChange}>
+                                    <option value =""></option>
+                                    {universities.map(university=>(
+                                    <option key = {university.universityId} value = {university.universityId}>{university.name}</option>
+                                ))}
+                                </select>
                             </label>
-                            <button type ='submit' className="popup-close-btn">Submit</button>
+                            
+                            <button type ='submit' className="popup-close-btn">Delete</button>
                         </form>
                     </div>
                 }
                 {popupType === "addComment" && 
                     <div>
-                        <form>
-                            <label className="labelColor">
-                                Placeholder
-                            </label>
-                            <br />
-                            <button type ='submit' className="popup-close-btn">Submit</button>
-                        </form>
-                    </div>
+                    <form onSubmit={handleFormSubmit}>
+                        <label className="labelColor">
+                            Comment:
+                            <input className="popupInput" type="name" name="name" onChange={handleCommentChange} />
+                        </label>
+                        <br />
+                        <label className="labelColor">
+                            <select onChange={handleEventIdChange}>
+                                    <option value =""></option>
+                                    {data.map(data=>(
+                                    <option key = {data.eventId} value = {data.eventId}>{data.name}</option>
+                                ))}
+                                </select>
+                        </label>
+                        <br />
+                        {/* <label className="eventId">
+                            userId : {locationState.state.userId}
+                        </label> */}
+                        <br />
+                        <button type ='submit' className="popup-close-btn">Submit</button>
+                    </form>
+                </div>
                 }
                 {popupType === "deleteComment" && 
                     <div>
-                        <form>
-                            <label className="labelColor">
-                                Placeholder
-                            </label>
-                            <br />
-                            <button type ='submit' className="popup-close-btn">Submit</button>
-                        </form>
-                    </div>
+                    <form onSubmit={handleFormSubmit}>
+                        
+                        <label className="labelColor">
+                            <select onChange={handleCommentIdChange}>
+                                    <option value =""></option>
+                                    {myComments.map(data=>(
+                                    <option key = {data.commentId} value = {data.commentId}>{data.event} : {data.comment}</option>
+                                ))}
+                                </select>
+                        </label>
+                        <br />
+                        {/* <label className="eventId">
+                            userId : {locationState.state.userId}
+                        </label> */}
+                        <br />
+                        <button type ='submit' className="popup-close-btn">Delete</button>
+                    </form>
+                </div>
                 }
-                {popupType === "addComment" && 
-                    <div>
-                        <form>
-                            <label className="labelColor">
-                                PlaceHolder
-                            </label>
-                            <br />
-                            <button type ='submit' className="popup-close-btn">Submit</button>
-                        </form>
-                    </div>
-                }
+                {/* WORKING */}
                 {popupType === "addEvent" && 
                     <div>
                         <form onSubmit={handleFormSubmit}>
@@ -526,10 +871,12 @@ function MainPage() {
                         </tr>
                     </thead>
                     <tbody className="tbody">
-                    <tr>
-                            <td>Hello Students</td>
-                            <td>vu@ucf.edu</td>
+                    {currentComment.map((row) => (
+                        <tr key = {row.commentId}>
+                            <td>{row.comment}</td>
+                            <td>{row.email}</td>
                         </tr>
+                    ))}
                     </tbody>
                         </table>
                     </div>

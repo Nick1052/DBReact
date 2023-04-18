@@ -344,23 +344,23 @@ function MainPage() {
                             </label>
                             <br />
                             <label className="eventId">
-                                userId : {locationState.state.userId}
+                                userId : {location.state.userId}
                             </label>
                             <button type ='submit' className="popup-close-btn">Submit</button>
                         </form>
                     </div> 
                 }
                 {popupType === "viewComments" && 
-                    <div>
-                        <table>
+                    <div className="table-container">
+                        <table className="db-table">
                         <thead>
-                        <tr>
+                        <tr >
                             <th>Comment</th>
                             <th>Email</th>
                             
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="tbody">
                     <tr>
                             <td>Hello Students</td>
                             <td>vu@ucf.edu</td>
@@ -371,13 +371,13 @@ function MainPage() {
                 }
                 {popupType === "editEvent" && 
                     <div>
-                        <label>PlaceHolder</label>
+                        <label className="labelColor">PlaceHolder</label>
                     </div>
                 }
                 {popupType === "deleteEvent" && 
                     <div>
-                       <button>Are you sure you want to delete?</button>
-                       <button type ='button' className="popup-close-btn">Submit</button>
+                       <label className="DeleteConfirmation">Are you sure you want to delete?</label>
+                       <button type ='button' className="popup-close-btn">Delete</button>
                     </div>
                 }
             </Popup>

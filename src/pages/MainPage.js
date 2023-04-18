@@ -4,332 +4,38 @@ import {useLocation} from 'react-router-dom'
 import Popup from "../components/CustomPopUp"
 
 function MainPage() {
-    const[events, setEvents] = useState("")
-    const[rsos, setRsos] = useState("")
+    
     const [buttonPopup, setButtonPopup] = useState(false)
+    const [popupType, setPopupType] = useState("")
     const location = useLocation();
     
-    const buttonFields = {
-        "Create RSO": { userId: "", name: "", description: "" },
-    };
-
     
+    const handleButtonClick = (type) => {
+        setPopupType(type)
+        setButtonPopup(true)
+    }
 
 
    // console.log(location.state.userId)
-
-    // const handleAddEvent = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleDeleteEvent = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleEditEvent = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleAddRso = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleJoinRso = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleDeleteRso = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleAddUniversity = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleDeleteUniversity = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleAddComment = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleDeleteComment = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleViewEvents = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleViewRsoEvents = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleViewUniversityEvents = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
-
-    // const handleViewComment = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //     const response = await fetch("http://127.0.0.1:5000/login", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //         }),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // TODO: Handle response data
-    //     } catch (error) {
-    //     console.error(error);
-    //     }
-    // };
   
     return (
         <div className="page">
             <div className="controls">
                 <div className="rsoControls">
-                    <button className="controlsB" onClick= {() => setButtonPopup(true)}>Create RSO</button>
-                    <button className="controlsB">Delete RSO</button>
-                    <button className="controlsB">Join RSO</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("createRSO")}>Create RSO</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("deleteRSO")}>Delete RSO</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("joinRSO")}>Join RSO</button>
                 </div>
                 <div className="universityControls">
-                    <button className="controlsB">Add University</button>
-                    <button className="controlsB">Delete University</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("addUniversity")}>Add University</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("deleteUniversity")}>Delete University</button>
                 </div>
                 <div className="commentControls">
-                    <button className="controlsB">Add Comment</button>
-                    <button className="controlsB">Delete Comment</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("addComment")}>Add Comment</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("deleteComment")}>Delete Comment</button>
                 </div>
                 <div className="eventsControls">
-                    <button className="controlsB">Add Events</button>
+                    <button className="controlsB" onClick= {() => handleButtonClick("addEvent")}>Add Events</button>
                 </div>
             </div>
             <div className="table-container">
@@ -361,6 +67,7 @@ function MainPage() {
                             <td>
                                 <button class="modify">Edit</button>
                                 <button class="modify">Delete</button>
+                                <button class="modify">View Comments</button>
                             </td>
                             <td className="eventId">eventId</td>
 
@@ -369,9 +76,158 @@ function MainPage() {
                 </table>
             </div>
             <Popup trigger= {buttonPopup} setTrigger = {setButtonPopup}>
-                <form>
-
-                </form>
+                {popupType === "createRSO" && 
+                    <div>
+                        <form>
+                            <label>
+                                RSO name:
+                                <input type="rsoName" name="rsoName"  />
+                            </label>
+                            <br />
+                            <label>
+                                Description:
+                                <input type="description" name="description"  />
+                            </label>
+                            <br />
+                            <label className="eventId">
+                                userId : {location.state.userId}
+                            </label>
+                            <br />
+                        </form>
+                    </div>
+                }
+                {popupType === "deleteRSO" && 
+                    <div>
+                        <form>
+                            <label>
+                                PlaceHolder
+                            </label>
+                            <br />
+                        </form>
+                    </div>
+                }
+                {popupType === "joinRSO" && 
+                    <div>
+                        <form>
+                            <label>
+                                RSO name:
+                                <input type="rsoName" name="rsoName"  />
+                            </label>
+                            <br />
+                            <label className="eventId">
+                                userId : {location.state.userId}
+                            </label>
+                            <br />
+                            <label className="eventId">
+                                rsoId : 
+                            </label>
+                        </form>
+                    </div>
+                }
+                {popupType === "addUniversity" && 
+                    <div>
+                        <form>
+                            <label>
+                                University Name:
+                                <input type="universityName" name="universityName"  />
+                            </label>
+                        </form>
+                    </div>
+                }
+                {popupType === "deleteUniversity" && 
+                    <div>
+                        <form>
+                            <label>
+                                University Name:
+                                <input type="universityName" name="universityName"  />
+                            </label>
+                        </form>
+                    </div>
+                }
+                {popupType === "addComment" && 
+                    <div>
+                        <form>
+                            <label>
+                                Placeholder
+                            </label>
+                            <br />
+                        </form>
+                    </div>
+                }
+                {popupType === "deleteComment" && 
+                    <div>
+                        <form>
+                            <label>
+                                Placeholder
+                            </label>
+                            <br />
+                        </form>
+                    </div>
+                }
+                {popupType === "addComment" && 
+                    <div>
+                        <form>
+                            <label>
+                                PlaceHolder
+                            </label>
+                            <br />
+                        </form>
+                    </div>
+                }
+                {popupType === "addEvent" && 
+                    <div>
+                        <form>
+                            <label>
+                                Event Name:
+                                <input type ="name" name ="name" />
+                            </label>
+                            <br />
+                            <label>
+                                Event URL:
+                                <input type ="url" name ="url" />
+                            </label>
+                            <br />
+                            <label>
+                                Event Description:
+                                <input type ="description" name ="description" />
+                            </label>
+                            <br />
+                            <label>
+                                Event Date:
+                                <input type ="date" name ="date" />
+                            </label>
+                            <br />
+                            <label>
+                                Event Location:
+                                <input type ="location" name ="location" />
+                            </label>
+                            <br />
+                            <label>
+                                Start time:
+                                <input type ="location" name ="location" />
+                            </label>
+                            <br />
+                            <label>
+                                End time:
+                                <input type ="location" name ="location" />
+                            </label>
+                            <br />
+                            <label>
+                                Type of Event:
+                                <select>
+                                    <option value =""></option>
+                                    <option value="public">Public</option>
+                                    <option value="private">Private</option>
+                                    <option value="rso">RSO</option>
+                                </select>
+                            </label>
+                            <br />
+                            <label className="eventId">
+                                userId : {location.state.userId}
+                            </label>
+                        </form>
+                    </div> 
+                }
             </Popup>
         </div>
     );

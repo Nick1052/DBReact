@@ -6,7 +6,7 @@ function LandingPage() {
     const [password, setPassword] = useState("");
     const [university, setUniversity] = useState("");
     const [role, setRole] = useState("");
-    const [user, setUser] = useState()
+    const [user, setUser] = useState();
     const [isSubmitted, setSubmmited] = useState(false)
     const navigate = useNavigate();
 
